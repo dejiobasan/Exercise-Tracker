@@ -24,9 +24,6 @@ const UserRouter = require("./Routes/Users");
 app.use("/Exercises", ExercisesRouter);
 app.use("/Users", UserRouter);
 
-
-
-
 app.listen(port, function () {
     console.log("server started at port 5000.");
 });
