@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+
 
 function CreateExercise() {
     const [user, setUser] = useState({
@@ -18,6 +20,8 @@ function CreateExercise() {
     function handleSubmit(event) {
         event.preventDefault();
         console.log(user);
+        axios.post("http://localhost:5000/Exercises/add", user)
+            .then(res => console.log(res.data));
         window.location = "/";
     }
 

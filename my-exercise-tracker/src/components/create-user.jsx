@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function CreateUser() {
 
@@ -14,6 +15,8 @@ function CreateUser() {
     function handleSubmit(event) {
         event.preventDefault();
         console.log(newUser);
+        axios.post("http://localhost:5000/Users/add", newUser)
+            .then(res => console.log(res.data));
         setNewUser({
             username: ""
         });
@@ -21,14 +24,14 @@ function CreateUser() {
 
     return (
         <div>
-            <h4>Create a Username </h4>
+            <h4>Create New User </h4>
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label className="form-label">Username: </label>
                     <input name="username" value={newUser.username} onChange={handleChange} type="text" className="form-control" placeholder="Username" />
                 </div>
                 <div className="form-group">
-                    <button type="submit" className="btn btn-dark">Create Username</button>
+                    <button type="submit" className="btn btn-dark">Create User</button>
                 </div>
             </form>
         </div>
