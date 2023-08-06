@@ -1,40 +1,34 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-
-
-const Exercise = props => {
-    <tr>
-        <td>{props.Username}</td>
-        <td>{props.Description}</td>
-        <td>{props.Duration}</td>
-        <td>{props.Date}</td>
-        <td>
-            <Link to={"/edit/"+props._id}>edit</Link> | <button className="btn btn-dark" onClick={ props.Deleteexercise(props._id) }>Delete</button>
-        </td>
-    </tr>
-}
+import Exercises from "./available-exercises";
 
 function ExercisesList() {
     const [exercises, setExercises] = useState([]);
 
-    axios.get("http://localhost:5000/Exercises/")
-        .then(res => {
-            setExercises(res.data)
-        })
-        .catch((error) => {
-            console.log('Error:'+ error);
-        })
+
+    axios.get('http://localhost:5000/Exercises/')
+    .then(function (response) {
+        setExercises(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .finally(function () {
+        
+    });
 
     function deleteExercise(id) {
-        axios.delete("http://localhost:5000/Exercises/"+id)
-            .then(res => console.log(res.data))
-            setExercises(exercises.filter(exercise => exercise._id !== id))
+        axios.delete(`http://localhost:5000/Exercises/${id}`)
+        .then(function (response) {
+            console.log(response.data);
+        })
+
+        setExercises(exercises.filter(el => el._id !== id))
     }
 
     function exercisesList() {
         return exercises.map(currentexercise => {
-            return <Exercise exercise={currentexercise} Deleteexercise={deleteExercise} key={currentexercise._id} />
+            return (<Exercises key={currentexercise._id} exercise={currentexercise} Deleteexercise={deleteExercise} />)
         })
     }
 

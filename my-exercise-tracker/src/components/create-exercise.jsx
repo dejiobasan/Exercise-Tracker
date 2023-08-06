@@ -21,8 +21,8 @@ function CreateExercise() {
         event.preventDefault();
         console.log(user);
         axios.post("http://localhost:5000/Exercises/add", user)
-            .then(res => console.log(res.data));
-        window.location = "/";
+        .then(response => console.log(response.data));
+        // window.location = "/";
     }
 
     return (
