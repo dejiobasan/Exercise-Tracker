@@ -6,7 +6,7 @@ router.route("/").get((req, res) => {
     .then(exercises => res.json(exercises))
     .catch(() => res.status(400).send('Error: Server error'));
 });
-
+//Add Exercise
 router.route("/add").post((req, res) => {
     const Username = req.body.username;
     const Description = req.body.description;
@@ -22,19 +22,20 @@ router.route("/add").post((req, res) => {
     .then(() => res.json("Exercise Added!"))
     .catch(err => res.status(400).json("Error: " + err));
 });
-
+//Get Exercise
 router.route("/:id").get((req, res) => {
     Exercise.findById(req.params.id)
     .then(exercise => res.json(exercise))
     .catch(err => res.status(400).json("Error:" + err));
 });
-
+//delete Exercise
 router.route("/:id").delete((req, res) => {
     Exercise.findByIdAndDelete(req.params.id)
     .then(() => res.json("Exercise Deleted!"))
     .catch(err => res.status(400).json("Error:" + err));
 });
 
+//update Exercise
 router.route("/update/:id").post((req, res) => {
     Exercise.findById(req.params.id)
     .then(exercise => {
